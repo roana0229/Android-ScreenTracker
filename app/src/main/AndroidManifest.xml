@@ -3,14 +3,16 @@
     package="app.roana0229.org.screentrackingapp">
 
     <application
-        android:name=".ScreenTrackingApplication"
+        android:name=".tracking.ScreenTrackingApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,9 +20,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CompleteActivity"
+            android:label="@string/title_activity_complete"
+            android:theme="@style/AppTheme.Translucent" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

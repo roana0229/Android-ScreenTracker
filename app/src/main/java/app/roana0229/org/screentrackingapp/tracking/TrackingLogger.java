@@ -1,8 +1,6 @@
-package app.roana0229.org.screentrackingapp;
+package app.roana0229.org.screentrackingapp.tracking;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.UUID;
 
-class TrackingLogger {
+public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();
 
@@ -21,7 +19,7 @@ class TrackingLogger {
     private String session;
     private Screen sentOneBeforeScreen;
 
-    static TrackingLogger getInstance() {
+    public static TrackingLogger getInstance() {
         return instance;
     }
 

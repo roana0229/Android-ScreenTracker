@@ -1,4 +1,4 @@
-package app.roana0229.org.screentrackingapp;
+package app.roana0229.org.screentrackingapp.tracking;
 
 import android.app.Application;
 import android.content.ComponentCallbacks;
