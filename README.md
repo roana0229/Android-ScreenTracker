@@ -2,10 +2,15 @@
 
 ## Tracking Pattern
 
-`()` = initial created
-`-` = stack
+1. Only Activity
+  - (Activity)
+2. Activity and Fragment
+  - (Activity - Fragment)
+3. Activity and Fragment, and replace Fragment
+  - (Activity - Fragment) - Fragment
+4. Activity and Fragment and ViewPager
+  - (Activity - Fragment - ViewPager - [Fragment, Fragment, ...])
 
-A. (Activity)
-B. (Activity - Fragment)
-C. (Activity - Fragment) - Fragment
-D. (Activity - Fragment - ViewPager - [Fragment, Fragment, ...])
+
+- `(...)` = initial created group at screen
+- `X - X` = view hierarchy
