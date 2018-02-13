@@ -22,7 +22,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="app.roana0229.org.screentrackingapp.fragment.TabContentFragment"
+        tools:context="app.roana0229.org.screentrackingapp.fragment.TabFragment"
         tools:listitem="@layout/fragment_tab_content_item" />
 
 </LinearLayout>

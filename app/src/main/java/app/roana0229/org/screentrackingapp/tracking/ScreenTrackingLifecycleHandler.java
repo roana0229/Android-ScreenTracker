@@ -6,44 +6,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.HashMap;
+import app.roana0229.org.screentrackingapp.utility.SimpleLogger;
 
 
 public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
-    public interface ScreenTrackingCallBack {
-        void track(@Nullable String prevScreenName, @NonNull String screenName, @Nullable HashMap<String, Object> parameter, int pvCount, long exposureTime);
-    }
-
-    private final static int CHECK_BACKGROUND_TIME = 2000;
-
     private final ScreenTrackingCallBack callBack;
-    private final Handler handler;
-    private final Runnable clearBackgroundRunner = new Runnable() {
-        @Override
-        public void run() {
-            SimpleLogger.log(this);
-            sentPrevScreenName = null;
-        }
-    };
 
     private long activityStartedTime;
     private long fragmentStartedTime;
-    private int pvCount;
-    private String sentPrevScreenName;
 
     public ScreenTrackingLifecycleHandler(ScreenTrackingCallBack callBack) {
         this.callBack = callBack;
-        HandlerThread handlerThread = new HandlerThread(ScreenTrackingLifecycleHandler.class.getSimpleName() + "Thread");
-        handlerThread.start();
-        this.handler = new Handler(handlerThread.getLooper());
     }
 
 
@@ -72,8 +51,6 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
 
     @Override
     public void onActivityResumed(Activity activity) {
-        handler.removeCallbacks(clearBackgroundRunner);
-
         if (activity instanceof TrackingMarker) {
             SimpleLogger.log(activity);
             activityStartedTime = System.currentTimeMillis();
@@ -82,8 +59,6 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
 
     @Override
     public void onActivityPaused(Activity activity) {
-        handler.postDelayed(clearBackgroundRunner, CHECK_BACKGROUND_TIME);
-
         if (activity instanceof TrackingMarker) {
             SimpleLogger.log(activity);
             long exposureTime = System.currentTimeMillis() - activityStartedTime;
@@ -180,6 +155,10 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
         super.onFragmentResumed(fm, f);
+        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
+            return;
+        }
+
         if (f instanceof TrackingMarker) {
             SimpleLogger.log(f);
             fragmentStartedTime = System.currentTimeMillis();
@@ -189,6 +168,10 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
         super.onFragmentPaused(fm, f);
+        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
+            return;
+        }
+
         if (f instanceof TrackingMarker) {
             SimpleLogger.log(f);
             long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
@@ -236,9 +219,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     }
 
     private void track(TrackingMarker trackingMarker, long exposureTime) {
-        pvCount += 1;
-        callBack.track(sentPrevScreenName, trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), pvCount, exposureTime);
-        sentPrevScreenName = trackingMarker.getScreenName();
+        callBack.track(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
     }
 
 }

@@ -1,4 +1,4 @@
-package app.roana0229.org.screentrackingapp.tracking;
+package app.roana0229.org.screentrackingapp.utility;
 
 
 import android.support.annotation.NonNull;
@@ -11,23 +11,34 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
+import app.roana0229.org.screentrackingapp.tracking.Event;
+
 public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();
 
     private static final TrackingLogger instance = new TrackingLogger();
     private String session;
+    private int pvCount;
+    private String prevScreenName;
 
     public static TrackingLogger getInstance() {
         return instance;
     }
 
     private TrackingLogger() {
-        session = UUID.randomUUID().toString().replaceAll("-", "");
+        init();
     }
 
-    // TODO: Screenをこのフレームワークで持たないようにするために、interfaceで受け取る
-    public void sendScreen(@Nullable String prevScreenName, @NonNull String screenName, @Nullable HashMap<String, Object> params, int pvCount, long exposureTime) {
+    public void init() {
+        session = UUID.randomUUID().toString().replaceAll("-", "");
+        pvCount = 0;
+        prevScreenName = null;
+    }
+
+    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params, long exposureTime) {
+        pvCount += 1;
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, pvCount - 1) : "");
         stringBuilder.append(" -> ");
@@ -36,6 +47,8 @@ public class TrackingLogger {
         stringBuilder.append(paramsLogString(params));
 
         log(stringBuilder.toString());
+
+        prevScreenName = screenName;
     }
 
     public void sendEvent(@NonNull String screenName, @NonNull Event event) {

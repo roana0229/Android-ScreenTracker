@@ -1,4 +1,4 @@
-package app.roana0229.org.screentrackingapp.tracking;
+package app.roana0229.org.screentrackingapp.utility;
 
 import android.util.Log;
 

@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 
 import java.util.HashMap;
 
+import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
+
 public class ScreenTrackingApplication extends Application {
 
     public ScreenTrackingApplication() {
@@ -18,10 +20,10 @@ public class ScreenTrackingApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(new ScreenTrackingLifecycleHandler.ScreenTrackingCallBack() {
+        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(new ScreenTrackingCallBack() {
             @Override
-            public void track(@Nullable String prevScreenName, @NonNull String screenName, @Nullable HashMap<String, Object> parameter, int pvCount, long exposureTime) {
-                TrackingLogger.getInstance().sendScreen(prevScreenName, screenName, parameter, pvCount, exposureTime);
+            public void track(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime) {
+                TrackingLogger.getInstance().sendScreen(screenName, parameter, exposureTime);
             }
         }));
     }
