@@ -2,7 +2,12 @@ package app.roana0229.org.screentrackingapp.tracking;
 
 import android.app.Application;
 import android.content.ComponentCallbacks;
+import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.HashMap;
 
 public class ScreenTrackingApplication extends Application {
 
@@ -13,7 +18,12 @@ public class ScreenTrackingApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler());
+        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(new ScreenTrackingLifecycleHandler.ScreenTrackingCallBack() {
+            @Override
+            public void track(@Nullable String prevScreenName, @NonNull String screenName, @Nullable HashMap<String, Object> parameter, int pvCount, long exposureTime) {
+                TrackingLogger.getInstance().sendScreen(prevScreenName, screenName, parameter, pvCount, exposureTime);
+            }
+        }));
     }
 
     @Override

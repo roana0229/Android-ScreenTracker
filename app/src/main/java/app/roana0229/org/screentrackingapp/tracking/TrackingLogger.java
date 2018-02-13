@@ -16,35 +16,26 @@ public class TrackingLogger {
     private static final String TAG = TrackingLogger.class.getSimpleName();
 
     private static final TrackingLogger instance = new TrackingLogger();
-    private int pvCount;
     private String session;
-    private String sentOneBeforeScreenName;
 
     public static TrackingLogger getInstance() {
         return instance;
     }
 
     private TrackingLogger() {
-        pvCount = 0;
         session = UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public void sendScreen(@NonNull String screenName) {
-        sendScreen(screenName, null);
-    }
-
     // TODO: Screenをこのフレームワークで持たないようにするために、interfaceで受け取る
-    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params) {
-        pvCount += 1;
+    public void sendScreen(@Nullable String prevScreenName, @NonNull String screenName, @Nullable HashMap<String, Object> params, int pvCount, long exposureTime) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(sentOneBeforeScreenName != null ? screenLogString(sentOneBeforeScreenName, pvCount - 1) : "");
+        stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, pvCount - 1) : "");
         stringBuilder.append(" -> ");
         stringBuilder.append(screenLogString(screenName, pvCount));
+        stringBuilder.append(screenExposureLogString(exposureTime));
         stringBuilder.append(paramsLogString(params));
 
         log(stringBuilder.toString());
-
-        sentOneBeforeScreenName = screenName;
     }
 
     public void sendEvent(@NonNull String screenName, @NonNull Event event) {
@@ -83,6 +74,10 @@ public class TrackingLogger {
 
     private String screenLogString(@NonNull String screenName, int pvCount) {
         return String.format("%s(pv:%d)", screenName, pvCount);
+    }
+
+    private String screenExposureLogString(long exposureTime) {
+        return String.format(" exposureTime: %dms", exposureTime);
     }
 
     private String eventLogString(@NonNull String screenName, @NonNull Event event) {
