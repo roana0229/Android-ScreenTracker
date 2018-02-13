@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.model.DummyContent;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements TrackingMarker {
 
     private final static String BUNDLE_KEY_ITEM = "bundle_key_item";
 
@@ -29,6 +32,18 @@ public class DetailFragment extends Fragment {
     }
 
     public DetailFragment() {
+    }
+
+    @Override
+    public String getScreenName() {
+        return "詳細";
+    }
+
+    @Override
+    public HashMap<String, Object> getScreenParameter() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("item_id", mItem.id);
+        return hashMap;
     }
 
     @Override

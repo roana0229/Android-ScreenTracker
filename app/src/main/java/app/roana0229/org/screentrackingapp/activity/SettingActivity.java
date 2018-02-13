@@ -3,7 +3,9 @@ package app.roana0229.org.screentrackingapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -29,18 +31,14 @@ public class SettingActivity extends AppCompatActivity implements SettingFragmen
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(android.R.id.content, SettingFragment.newInstance(null))
+                .replace(android.R.id.content, SettingFragment.newInstance(null), SettingFragment.class.getSimpleName())
                 .commit();
     }
 
     @Override
     public void selectedSettingItem(SettingContent.SettingItem settingItem) {
         if (settingItem == null) {
-            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(android.R.id.content, SettingFragment.newInstance(settingItem))
-                    .commit();
+            getSupportFragmentManager().popBackStack(SettingFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         } else {
             getSupportFragmentManager()
                     .beginTransaction()

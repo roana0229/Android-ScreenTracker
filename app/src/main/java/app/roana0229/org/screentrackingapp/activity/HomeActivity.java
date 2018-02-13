@@ -16,13 +16,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.HashMap;
+
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.tracking.Screen;
 import app.roana0229.org.screentrackingapp.fragment.TabContentFragment;
 import app.roana0229.org.screentrackingapp.tracking.TrackingLogger;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements TrackingMarker {
 
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -32,6 +35,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+    @Override
+    public String getScreenName() {
+        return "ホーム";
+    }
+
+    @Override
+    public HashMap<String, Object> getScreenParameter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +59,6 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
         mViewPager.setAdapter(mSectionsPagerAdapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TrackingLogger.getInstance().sendScreen(Screen.HOME);
     }
 
     @Override
@@ -71,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

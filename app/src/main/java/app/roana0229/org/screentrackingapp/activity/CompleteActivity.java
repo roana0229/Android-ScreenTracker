@@ -10,14 +10,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.HashMap;
+
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class CompleteActivity extends AppCompatActivity {
+public class CompleteActivity extends AppCompatActivity implements TrackingMarker {
 
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, CompleteActivity.class);
         return intent;
+    }
+
+    @Override
+    public String getScreenName() {
+        return "完了";
+    }
+
+    @Override
+    public HashMap<String, Object> getScreenParameter() {
+        return null;
     }
 
     @Override
@@ -33,7 +46,4 @@ public class CompleteActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    @Override
-    public void onBackPressed() {
-    }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
 import java.util.List;
 
 import app.roana0229.org.screentrackingapp.Navigator;
@@ -17,8 +18,9 @@ import app.roana0229.org.screentrackingapp.adapter.ItemAdapter;
 import app.roana0229.org.screentrackingapp.adapter.SettingAdapter;
 import app.roana0229.org.screentrackingapp.model.DummyContent;
 import app.roana0229.org.screentrackingapp.model.SettingContent;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment implements TrackingMarker {
 
     public interface SettingCallbacks {
         void selectedSettingItem(SettingContent.SettingItem settingItem);
@@ -37,6 +39,22 @@ public class SettingFragment extends Fragment {
     }
 
     public SettingFragment() {
+    }
+
+    @Override
+    public String getScreenName() {
+        return mItem == null ? "設定一覧" : "設定詳細";
+    }
+
+    @Override
+    public HashMap<String, Object> getScreenParameter() {
+        if (mItem == null) {
+            return null;
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("setting_content", mItem.content);
+        return hashMap;
     }
 
     @Override
