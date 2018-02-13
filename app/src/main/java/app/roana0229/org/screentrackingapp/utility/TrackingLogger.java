@@ -11,8 +11,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
-import app.roana0229.org.screentrackingapp.tracking.Event;
-
 public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();
@@ -51,34 +49,16 @@ public class TrackingLogger {
         prevScreenName = screenName;
     }
 
-    public void sendEvent(@NonNull String screenName, @NonNull Event event) {
-        sendEvent(screenName, event, null);
-    }
-
-    // TODO: Eventをこのフレームワークで持たないようにするために、interfaceで受け取る
-    public void sendEvent(@NonNull String screenName, @NonNull Event event, @Nullable HashMap<String, Object> params) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(eventLogString(screenName, event));
-        stringBuilder.append(paramsLogString(params));
-        log(stringBuilder.toString());
-    }
-
     private void log(@NonNull String string) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(">");
-        stringBuilder.append(divide());
+        stringBuilder.append(">================================================================");
         stringBuilder.append("\n");
         stringBuilder.append(sessionLogString());
         stringBuilder.append("\n");
         stringBuilder.append(string);
         stringBuilder.append("\n");
-        stringBuilder.append("<");
-        stringBuilder.append(divide());
+        stringBuilder.append("<================================================================");
         Log.i(TAG, stringBuilder.toString());
-    }
-
-    private String divide() {
-        return "================================================================";
     }
 
     private String sessionLogString() {
@@ -91,10 +71,6 @@ public class TrackingLogger {
 
     private String screenExposureLogString(long exposureTime) {
         return String.format(" exposureTime: %dms", exposureTime);
-    }
-
-    private String eventLogString(@NonNull String screenName, @NonNull Event event) {
-        return String.format("%s(event:%s)", screenName, event.name());
     }
 
     private String paramsLogString(@Nullable HashMap<String, Object> hashMap) {
