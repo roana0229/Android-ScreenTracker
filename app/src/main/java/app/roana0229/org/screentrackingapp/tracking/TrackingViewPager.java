@@ -6,11 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
-
-import app.roana0229.org.screentrackingapp.utility.SimpleLogger;
 
 
 public class TrackingViewPager extends ViewPager {
@@ -25,7 +21,6 @@ public class TrackingViewPager extends ViewPager {
 
     public TrackingViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        prevPosition = getCurrentItem();
         getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -41,6 +36,8 @@ public class TrackingViewPager extends ViewPager {
     }
 
     private void startTracking() {
+        fragmentStartedTime = System.currentTimeMillis();
+        prevPosition = getCurrentItem();
         addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
