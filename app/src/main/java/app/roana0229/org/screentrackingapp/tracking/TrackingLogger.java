@@ -8,6 +8,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class TrackingLogger {
@@ -17,7 +18,7 @@ public class TrackingLogger {
     private static final TrackingLogger instance = new TrackingLogger();
     private int pvCount;
     private String session;
-    private Screen sentOneBeforeScreen;
+    private String sentOneBeforeScreenName;
 
     public static TrackingLogger getInstance() {
         return instance;
@@ -28,36 +29,32 @@ public class TrackingLogger {
         session = UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public void sendScreen(@NonNull Screen screen) {
-        sendScreen(screen, sentOneBeforeScreen, null);
-    }
-
-    public void sendScreen(@NonNull Screen screen, @Nullable Screen beforeScreen) {
-        sendScreen(screen, beforeScreen, null);
+    public void sendScreen(@NonNull String screenName) {
+        sendScreen(screenName, null);
     }
 
     // TODO: Screenをこのフレームワークで持たないようにするために、interfaceで受け取る
-    public void sendScreen(@NonNull Screen screen, @Nullable Screen beforeScreen, @Nullable JSONObject params) {
+    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params) {
         pvCount += 1;
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(beforeScreen != null ? screenLogString(beforeScreen, pvCount - 1) : "null");
+        stringBuilder.append(sentOneBeforeScreenName != null ? screenLogString(sentOneBeforeScreenName, pvCount - 1) : "");
         stringBuilder.append(" -> ");
-        stringBuilder.append(screenLogString(screen, pvCount));
+        stringBuilder.append(screenLogString(screenName, pvCount));
         stringBuilder.append(paramsLogString(params));
 
         log(stringBuilder.toString());
 
-        sentOneBeforeScreen = screen;
+        sentOneBeforeScreenName = screenName;
     }
 
-    public void sendEvent(@NonNull Screen screen, @NonNull Event event) {
-        sendEvent(screen, event, null);
+    public void sendEvent(@NonNull String screenName, @NonNull Event event) {
+        sendEvent(screenName, event, null);
     }
 
     // TODO: Eventをこのフレームワークで持たないようにするために、interfaceで受け取る
-    public void sendEvent(@NonNull Screen screen, @NonNull Event event, @Nullable JSONObject params) {
+    public void sendEvent(@NonNull String screenName, @NonNull Event event, @Nullable HashMap<String, Object> params) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(eventLogString(screen, event));
+        stringBuilder.append(eventLogString(screenName, event));
         stringBuilder.append(paramsLogString(params));
         log(stringBuilder.toString());
     }
@@ -84,20 +81,20 @@ public class TrackingLogger {
         return String.format("session: %s", session);
     }
 
-    private String screenLogString(@NonNull Screen screen, int pvCount) {
-        return String.format("%s(pv:%d)", screen.name(), pvCount);
+    private String screenLogString(@NonNull String screenName, int pvCount) {
+        return String.format("%s(pv:%d)", screenName, pvCount);
     }
 
-    private String eventLogString(@NonNull Screen screen, @NonNull Event event) {
-        return String.format("%s(event:%s)", screen.name(), event.name());
+    private String eventLogString(@NonNull String screenName, @NonNull Event event) {
+        return String.format("%s(event:%s)", screenName, event.name());
     }
 
-    private String paramsLogString(@Nullable JSONObject json) {
-        if (json != null) {
+    private String paramsLogString(@Nullable HashMap<String, Object> hashMap) {
+        if (hashMap != null) {
             try {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("\n");
-                stringBuilder.append(String.format("params:%s", json.toString(2)));
+                stringBuilder.append(String.format("params:%s", new JSONObject(hashMap).toString(2)));
                 return stringBuilder.toString();
             } catch (JSONException e) {
                 Log.e(TAG, "Tracking Params ParseError", e);
