@@ -155,7 +155,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
         super.onFragmentResumed(fm, f);
-        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
+        if (f instanceof ViewPagerTrackingMarker) {
             return;
         }
 
@@ -168,7 +168,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
         super.onFragmentPaused(fm, f);
-        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
+        if (f instanceof ViewPagerTrackingMarker) {
             return;
         }
 
