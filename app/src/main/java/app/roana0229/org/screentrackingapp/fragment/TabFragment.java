@@ -49,6 +49,12 @@ public class TabFragment extends Fragment implements ViewPagerTrackingMarker {
     }
 
     @Override
+    public boolean displayed() {
+        ViewPager viewPager = (ViewPager) getView().getParent();
+        return section == viewPager.getCurrentItem();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
