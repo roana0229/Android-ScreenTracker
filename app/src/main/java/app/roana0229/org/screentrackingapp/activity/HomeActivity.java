@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
+import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
 import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
 import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
@@ -82,12 +83,16 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return TabFragment.newInstance(position);
+            if (position < getCount() - 1) {
+                return TabFragment.newInstance(position);
+            } else {
+                return EmptyTabFragment.newInstance();
+            }
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     }
 }
