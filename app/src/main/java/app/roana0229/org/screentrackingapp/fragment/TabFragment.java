@@ -2,7 +2,6 @@ package app.roana0229.org.screentrackingapp.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,9 +16,9 @@ import app.roana0229.org.screentrackingapp.model.DummyContent.DummyItem;
 import app.roana0229.org.screentrackingapp.adapter.ItemAdapter;
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
-import app.roana0229.org.screentrackingapp.tracking.ViewPagerTrackingMarker;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class TabFragment extends Fragment implements ViewPagerTrackingMarker {
+public class TabFragment extends Fragment implements TrackingMarker {
 
     private final static String BUNDLE_KEY_SECTION = "bundle_key_section";
 
@@ -49,12 +48,6 @@ public class TabFragment extends Fragment implements ViewPagerTrackingMarker {
     }
 
     @Override
-    public boolean displayed() {
-        ViewPager viewPager = (ViewPager) getView().getParent();
-        return section == viewPager.getCurrentItem();
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -64,7 +57,7 @@ public class TabFragment extends Fragment implements ViewPagerTrackingMarker {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab_content, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab, container, false);
 
         TextView textView = (TextView) view.findViewById(R.id.title);
         textView.setText(String.format("Section %d", getArguments().getInt(BUNDLE_KEY_SECTION)));

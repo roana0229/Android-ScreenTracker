@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -155,11 +154,23 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
         super.onFragmentResumed(fm, f);
-        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
-            return;
-        }
-
         if (f instanceof TrackingMarker) {
+            if (f.getView() == null || f.getView().getParent() == null) {
+                return;
+            }
+
+            if (f.getView().getParent() instanceof ViewPager) {
+                ViewPager viewPager = (ViewPager) f.getView().getParent();
+                if (!(viewPager instanceof TrackingViewPager)) {
+                    return;
+                }
+                if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+                    return;
+                }
+
+                ((TrackingViewPager) viewPager).resume();
+            }
+
             SimpleLogger.log(f);
             fragmentStartedTime = System.currentTimeMillis();
         }
@@ -168,11 +179,21 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
         super.onFragmentPaused(fm, f);
-        if (f instanceof ViewPagerTrackingMarker && !((ViewPagerTrackingMarker) f).displayed()) {
-            return;
-        }
-
         if (f instanceof TrackingMarker) {
+            if (f.getView() == null || f.getView().getParent() == null) {
+                return;
+            }
+
+            if (f.getView().getParent() instanceof ViewPager) {
+                ViewPager viewPager = (ViewPager) f.getView().getParent();
+                if (!(viewPager instanceof TrackingViewPager)) {
+                    return;
+                }
+                if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+                    return;
+                }
+            }
+
             SimpleLogger.log(f);
             long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
             track((TrackingMarker) f, exposureTime);

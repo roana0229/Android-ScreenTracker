@@ -35,26 +35,33 @@ public class TrackingViewPager extends ViewPager {
         this.callBack = callBack;
     }
 
-    private void startTracking() {
+    public void resume() {
         fragmentStartedTime = System.currentTimeMillis();
         prevPosition = getCurrentItem();
+    }
+
+    private void startTracking() {
+        resume();
         addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                Fragment fragment = getFragment(prevPosition);
-                if (!(fragment instanceof ViewPagerTrackingMarker)) {
-                    return;
-                }
-
-                long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
-                if (callBack != null) {
-                    TrackingMarker trackingMarker = (TrackingMarker) fragment;
-                    callBack.track(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
-                }
-                fragmentStartedTime = System.currentTimeMillis();
-                prevPosition = position;
+                track();
+                resume();
             }
         });
+    }
+
+    private void track() {
+        Fragment fragment = getFragment(prevPosition);
+        if (fragment == null || !(fragment instanceof TrackingMarker)) {
+            return;
+        }
+
+        long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
+        if (callBack != null) {
+            TrackingMarker trackingMarker = (TrackingMarker) fragment;
+            callBack.track(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
+        }
     }
 
     private Fragment getFragment(int index) {
