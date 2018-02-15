@@ -2,7 +2,6 @@ package app.roana0229.org.screentrackingapp.tracking;
 
 import android.app.Application;
 import android.content.ComponentCallbacks;
-import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

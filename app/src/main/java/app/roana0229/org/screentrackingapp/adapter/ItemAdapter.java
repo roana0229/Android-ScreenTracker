@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import app.roana0229.org.screentrackingapp.model.DummyContent.DummyItem;
-import app.roana0229.org.screentrackingapp.R;
-
 import java.util.List;
+
+import app.roana0229.org.screentrackingapp.R;
+import app.roana0229.org.screentrackingapp.model.DummyContent.DummyItem;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 

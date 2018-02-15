@@ -11,7 +11,7 @@ import app.roana0229.org.screentrackingapp.model.DummyContent;
 
 public class Navigator {
 
-    private Context context;
+    private final Context context;
 
     public Navigator(Context context) {
         this.context = context;

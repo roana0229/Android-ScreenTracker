@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.fragment.DetailFragment;
 import app.roana0229.org.screentrackingapp.model.DummyContent;
-import app.roana0229.org.screentrackingapp.R;
 
 public class DetailActivity extends AppCompatActivity {
 

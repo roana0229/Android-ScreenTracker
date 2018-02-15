@@ -1,9 +1,9 @@
 package app.roana0229.org.screentrackingapp.fragment;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,7 +77,7 @@ public class DetailFragment extends Fragment implements TrackingMarker {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new Navigator(DetailFragment.this.getActivity()).showComplete();
+                        new Navigator(getActivity()).showComplete();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

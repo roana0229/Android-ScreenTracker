@@ -1,8 +1,8 @@
 package app.roana0229.org.screentrackingapp.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import java.util.HashMap;
 

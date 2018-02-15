@@ -12,11 +12,8 @@ import android.view.ViewGroup;
 import java.util.HashMap;
 import java.util.List;
 
-import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
-import app.roana0229.org.screentrackingapp.adapter.ItemAdapter;
 import app.roana0229.org.screentrackingapp.adapter.SettingAdapter;
-import app.roana0229.org.screentrackingapp.model.DummyContent;
 import app.roana0229.org.screentrackingapp.model.SettingContent;
 import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
