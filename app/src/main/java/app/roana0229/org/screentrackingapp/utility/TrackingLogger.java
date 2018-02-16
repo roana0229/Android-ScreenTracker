@@ -11,6 +11,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
+import hugo.weaving.DebugLog;
+
+@DebugLog
 public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();

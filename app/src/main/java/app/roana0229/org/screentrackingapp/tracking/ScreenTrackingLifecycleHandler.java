@@ -10,6 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import hugo.weaving.DebugLog;
+
+
+@DebugLog
 public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
     private final ScreenTrackingCallBack callBack;

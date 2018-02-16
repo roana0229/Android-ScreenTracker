@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
+import hugo.weaving.DebugLog;
 
+@DebugLog
 public class ScreenTrackingApplication extends Application {
 
     public ScreenTrackingApplication() {
