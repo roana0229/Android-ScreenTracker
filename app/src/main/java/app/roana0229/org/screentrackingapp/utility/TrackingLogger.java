@@ -34,6 +34,10 @@ public class TrackingLogger {
         prevScreenName = null;
     }
 
+    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params) {
+        sendScreen(screenName, params, -1);
+    }
+
     public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params, long exposureTime) {
         pvCount += 1;
 
@@ -41,12 +45,21 @@ public class TrackingLogger {
         stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, pvCount - 1) : "");
         stringBuilder.append(" -> ");
         stringBuilder.append(screenLogString(screenName, pvCount));
-        stringBuilder.append(screenExposureLogString(exposureTime));
+        if (exposureTime >= 0) {
+            stringBuilder.append(screenExposureLogString(exposureTime));
+        }
         stringBuilder.append(paramsLogString(params));
 
         log(stringBuilder.toString());
 
         prevScreenName = screenName;
+    }
+
+    public void sendExposure(@NonNull String screenName, long exposureTime) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(screenLogString(screenName, pvCount));
+        stringBuilder.append(screenExposureLogString(exposureTime));
+        log(stringBuilder.toString());
     }
 
     private void log(@NonNull String string) {

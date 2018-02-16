@@ -49,8 +49,13 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setTrackingCallBack(new ScreenTrackingCallBack() {
             @Override
-            public void track(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime) {
-                TrackingLogger.getInstance().sendScreen(screenName, parameter, exposureTime);
+            public void trackStarted(@NonNull String screenName, @Nullable HashMap<String, Object> parameter) {
+                TrackingLogger.getInstance().sendScreen(screenName, parameter);
+            }
+
+            @Override
+            public void trackEnded(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime) {
+                TrackingLogger.getInstance().sendExposure(screenName, exposureTime);
             }
         });
     }

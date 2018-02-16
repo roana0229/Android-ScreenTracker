@@ -25,7 +25,7 @@ public class TrackingViewPager extends ViewPager {
             @Override
             public boolean onPreDraw() {
                 getViewTreeObserver().removeOnPreDrawListener(this);
-                startTracking();
+                initTracking();
                 return true;
             }
         });
@@ -40,18 +40,31 @@ public class TrackingViewPager extends ViewPager {
         prevPosition = getCurrentItem();
     }
 
-    private void startTracking() {
+    private void initTracking() {
         resume();
         addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                track();
+                trackEnded();
                 resume();
+                trackStarted();
             }
         });
     }
 
-    private void track() {
+    private void trackStarted() {
+        Fragment fragment = getFragment(prevPosition);
+        if (fragment == null || !(fragment instanceof TrackingMarker)) {
+            return;
+        }
+
+        if (callBack != null) {
+            TrackingMarker trackingMarker = (TrackingMarker) fragment;
+            callBack.trackStarted(trackingMarker.getScreenName(), trackingMarker.getScreenParameter());
+        }
+    }
+
+    private void trackEnded() {
         Fragment fragment = getFragment(prevPosition);
         if (fragment == null || !(fragment instanceof TrackingMarker)) {
             return;
@@ -60,7 +73,7 @@ public class TrackingViewPager extends ViewPager {
         long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
         if (callBack != null) {
             TrackingMarker trackingMarker = (TrackingMarker) fragment;
-            callBack.track(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
+            callBack.trackEnded(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
         }
     }
 

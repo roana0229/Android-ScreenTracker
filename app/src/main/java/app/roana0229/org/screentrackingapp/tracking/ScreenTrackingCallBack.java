@@ -7,5 +7,7 @@ import android.support.annotation.Nullable;
 import java.util.HashMap;
 
 public interface ScreenTrackingCallBack {
-    void track(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime);
+    void trackStarted(@NonNull String screenName, @Nullable HashMap<String, Object> parameter);
+
+    void trackEnded(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime);
 }

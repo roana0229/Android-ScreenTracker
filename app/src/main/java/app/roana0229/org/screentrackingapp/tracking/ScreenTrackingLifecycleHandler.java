@@ -43,6 +43,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onActivityResumed(Activity activity) {
         if (activity instanceof TrackingMarker) {
             activityStartedTime = System.currentTimeMillis();
+            trackStarted((TrackingMarker) activity);
         }
     }
 
@@ -50,7 +51,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onActivityPaused(Activity activity) {
         if (activity instanceof TrackingMarker) {
             long exposureTime = System.currentTimeMillis() - activityStartedTime;
-            track((TrackingMarker) activity, exposureTime);
+            trackEnded((TrackingMarker) activity, exposureTime);
         }
     }
 
@@ -132,6 +133,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
             }
 
             fragmentStartedTime = System.currentTimeMillis();
+            trackStarted((TrackingMarker) f);
         }
     }
 
@@ -154,7 +156,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
             }
 
             long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
-            track((TrackingMarker) f, exposureTime);
+            trackEnded((TrackingMarker) f, exposureTime);
         }
     }
 
@@ -182,8 +184,12 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
         super.onFragmentDetached(fm, f);
     }
 
-    private void track(TrackingMarker trackingMarker, long exposureTime) {
-        callBack.track(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
+    private void trackStarted(TrackingMarker trackingMarker) {
+        callBack.trackStarted(trackingMarker.getScreenName(), trackingMarker.getScreenParameter());
+    }
+
+    private void trackEnded(TrackingMarker trackingMarker, long exposureTime) {
+        callBack.trackEnded(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
     }
 
 }
