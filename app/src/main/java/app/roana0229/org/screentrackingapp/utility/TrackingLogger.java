@@ -22,8 +22,7 @@ public class TrackingLogger {
     private static final TrackingLogger instance = new TrackingLogger();
     private String session;
     private int pvCount;
-    private int prePVCount;
-    private String prevScreenName;
+    private TrackingInfo prevTrackingInfo;
 
     public static TrackingLogger getInstance() {
         return instance;
@@ -36,7 +35,7 @@ public class TrackingLogger {
     private void init() {
         session = UUID.randomUUID().toString().replaceAll("-", "");
         pvCount = 0;
-        prevScreenName = null;
+        prevTrackingInfo = null;
     }
 
     public void sendScreen(@NonNull TrackingMarker trackingMarker) {
@@ -53,7 +52,7 @@ public class TrackingLogger {
         stringBuilder.append("\n");
 
 
-        stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, prePVCount) : "");
+        stringBuilder.append(prevTrackingInfo != null ? screenLogString(prevTrackingInfo.getTrackingMarker().getScreenName(), prevTrackingInfo.getPvCount()) : "");
         stringBuilder.append(" -> ");
         stringBuilder.append(screenLogString(trackingMarker.getScreenName(), pvCount));
         if (exposureTime >= 0) {
@@ -64,9 +63,8 @@ public class TrackingLogger {
 
         Log.i(TAG, stringBuilder.toString());
 
-        if (!(trackingMarker instanceof DialogFragment)) {
-            prePVCount = pvCount;
-            prevScreenName = trackingMarker.getScreenName();
+        if (isStackTrakingMarker(trackingMarker)) {
+            prevTrackingInfo = new TrackingInfo(trackingMarker, pvCount);
         }
     }
 
@@ -107,6 +105,32 @@ public class TrackingLogger {
             }
         }
         return "";
+    }
+
+    private boolean isStackTrakingMarker(TrackingMarker trackingMarker) {
+        if (trackingMarker instanceof DialogFragment) {
+            return false;
+        }
+        return true;
+    }
+
+    private static class TrackingInfo {
+
+        private final TrackingMarker trackingMarker;
+        private final int pvCount;
+
+        public TrackingInfo(TrackingMarker trackingMarker, int pvCount) {
+            this.trackingMarker = trackingMarker;
+            this.pvCount = pvCount;
+        }
+
+        public TrackingMarker getTrackingMarker() {
+            return trackingMarker;
+        }
+
+        public int getPvCount() {
+            return pvCount;
+        }
     }
 
 }
