@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
+import app.roana0229.org.screentrackingapp.dialog.PurchaseTutorialDialog;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
 import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
@@ -70,9 +71,13 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            new Navigator(this).showSetting();
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                new Navigator(this).showSetting();
+                return true;
+            case R.id.action_dialog:
+                new PurchaseTutorialDialog().show(getSupportFragmentManager(), "");
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
