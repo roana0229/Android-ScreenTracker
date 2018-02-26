@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-public class PurchaseTutorialDialog extends DialogFragment implements TrackingMarker {
+public class TutorialDialogFragment extends DialogFragment implements TrackingMarker {
 
     @NonNull
     @Override

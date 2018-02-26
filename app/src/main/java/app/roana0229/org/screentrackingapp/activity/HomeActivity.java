@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
-import app.roana0229.org.screentrackingapp.dialog.PurchaseTutorialDialog;
+import app.roana0229.org.screentrackingapp.dialog.TutorialDialogFragment;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
 import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
                 new Navigator(this).showSetting();
                 return true;
             case R.id.action_dialog:
-                new PurchaseTutorialDialog().show(getSupportFragmentManager(), "");
+                new TutorialDialogFragment().show(getSupportFragmentManager(), "");
                 return true;
         }
 
