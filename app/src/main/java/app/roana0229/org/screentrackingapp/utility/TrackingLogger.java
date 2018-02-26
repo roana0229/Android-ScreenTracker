@@ -12,14 +12,27 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
+import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
 import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
 
 public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();
-
     private static final TrackingLogger instance = new TrackingLogger();
+
+    private final ScreenTrackingCallBack callBack = new ScreenTrackingCallBack() {
+        @Override
+        public void trackStarted(@NonNull TrackingMarker trackingMarker) {
+            TrackingLogger.getInstance().sendScreen(trackingMarker);
+        }
+
+        @Override
+        public void trackEnded(@NonNull TrackingMarker trackingMarker, long exposureTime) {
+            TrackingLogger.getInstance().sendExposure(trackingMarker, exposureTime);
+        }
+    };
+
     private String session;
     private int pvCount;
     private TrackingInfo prevTrackingInfo;
@@ -36,6 +49,10 @@ public class TrackingLogger {
         session = UUID.randomUUID().toString().replaceAll("-", "");
         pvCount = 0;
         prevTrackingInfo = null;
+    }
+
+    public ScreenTrackingCallBack getCallBack() {
+        return callBack;
     }
 
     public void sendScreen(@NonNull TrackingMarker trackingMarker) {

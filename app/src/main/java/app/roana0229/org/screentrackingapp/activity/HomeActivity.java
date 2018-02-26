@@ -3,7 +3,6 @@ package app.roana0229.org.screentrackingapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,8 +16,6 @@ import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.dialog.TutorialDialogFragment;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
-import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
-import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 import app.roana0229.org.screentrackingapp.tracking.TrackingViewPager;
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
 
@@ -46,17 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager = (TrackingViewPager) findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setTrackingCallBack(new ScreenTrackingCallBack() {
-            @Override
-            public void trackStarted(@NonNull TrackingMarker trackingMarker) {
-                TrackingLogger.getInstance().sendScreen(trackingMarker);
-            }
-
-            @Override
-            public void trackEnded(@NonNull TrackingMarker trackingMarker, long exposureTime) {
-                TrackingLogger.getInstance().sendExposure(trackingMarker, exposureTime);
-            }
-        });
+        mViewPager.setTrackingCallBack(TrackingLogger.getInstance().getCallBack());
     }
 
     @Override

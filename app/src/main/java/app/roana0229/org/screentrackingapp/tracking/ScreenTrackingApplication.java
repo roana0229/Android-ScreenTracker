@@ -3,7 +3,6 @@ package app.roana0229.org.screentrackingapp.tracking;
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
-import android.support.annotation.NonNull;
 
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
 
@@ -16,17 +15,7 @@ public class ScreenTrackingApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(new ScreenTrackingCallBack() {
-            @Override
-            public void trackStarted(@NonNull TrackingMarker trackingMarker) {
-                TrackingLogger.getInstance().sendScreen(trackingMarker);
-            }
-
-            @Override
-            public void trackEnded(@NonNull TrackingMarker trackingMarker, long exposureTime) {
-                TrackingLogger.getInstance().sendExposure(trackingMarker, exposureTime);
-            }
-        }));
+        registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(TrackingLogger.getInstance().getCallBack()));
     }
 
     @Override
