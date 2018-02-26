@@ -18,25 +18,21 @@ public class Navigator {
     }
 
     public void showHome() {
-        // TODO: Tracking要素を注入する
         Intent intent = HomeActivity.getIntent(context);
         context.startActivity(intent);
     }
 
     public void showDetail(DummyContent.DummyItem item) {
-        // TODO: Tracking要素を注入する
         Intent intent = DetailActivity.getIntent(context, item);
         context.startActivity(intent);
     }
 
     public void showComplete() {
-        // TODO: Tracking要素を注入する
         Intent intent = CompleteActivity.getIntent(context);
         context.startActivity(intent);
     }
 
     public void showSetting() {
-        // TODO: Tracking要素を注入する
         Intent intent = SettingActivity.getIntent(context);
         context.startActivity(intent);
     }

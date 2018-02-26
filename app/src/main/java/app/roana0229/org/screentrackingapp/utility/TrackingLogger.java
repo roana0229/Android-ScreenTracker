@@ -63,11 +63,9 @@ public class TrackingLogger {
         pvCount += 1;
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(">================================================================");
-        stringBuilder.append("\n");
+        stringBuilder.append(">================================================================\n");
         stringBuilder.append(sessionLogString());
         stringBuilder.append("\n");
-
 
         stringBuilder.append(prevTrackingInfo != null ? screenLogString(prevTrackingInfo.getTrackingMarker().getScreenName(), prevTrackingInfo.getPvCount()) : "");
         stringBuilder.append(" -> ");
@@ -77,10 +75,9 @@ public class TrackingLogger {
         }
         stringBuilder.append(paramsLogString(trackingMarker.getScreenParameter()));
 
-
         Log.i(TAG, stringBuilder.toString());
 
-        if (isStackTrakingMarker(trackingMarker)) {
+        if (isStackTrackingMarker(trackingMarker)) {
             prevTrackingInfo = new TrackingInfo(trackingMarker, pvCount);
         }
     }
@@ -88,15 +85,43 @@ public class TrackingLogger {
     public void sendExposure(@NonNull TrackingMarker trackingMarker, long exposureTime) {
         StringBuilder stringBuilder = new StringBuilder();
 
-
         stringBuilder.append(screenLogString(trackingMarker.getScreenName(), pvCount));
         stringBuilder.append(screenExposureLogString(exposureTime));
 
-
-        stringBuilder.append("\n");
-        stringBuilder.append("<================================================================");
+        stringBuilder.append("\n<================================================================");
         Log.i(TAG, stringBuilder.toString());
     }
+
+    private boolean isStackTrackingMarker(TrackingMarker trackingMarker) {
+        if (trackingMarker instanceof DialogFragment) {
+            return false;
+        }
+        return true;
+    }
+
+    private static class TrackingInfo {
+
+        private final TrackingMarker trackingMarker;
+        private final int pvCount;
+
+        private TrackingInfo(TrackingMarker trackingMarker, int pvCount) {
+            this.trackingMarker = trackingMarker;
+            this.pvCount = pvCount;
+        }
+
+        private TrackingMarker getTrackingMarker() {
+            return trackingMarker;
+        }
+
+        private int getPvCount() {
+            return pvCount;
+        }
+    }
+
+
+    // ================================================================
+    // Pretty String Method
+    // ================================================================
 
     private String sessionLogString() {
         return String.format("session: %s", session);
@@ -122,32 +147,6 @@ public class TrackingLogger {
             }
         }
         return "";
-    }
-
-    private boolean isStackTrakingMarker(TrackingMarker trackingMarker) {
-        if (trackingMarker instanceof DialogFragment) {
-            return false;
-        }
-        return true;
-    }
-
-    private static class TrackingInfo {
-
-        private final TrackingMarker trackingMarker;
-        private final int pvCount;
-
-        public TrackingInfo(TrackingMarker trackingMarker, int pvCount) {
-            this.trackingMarker = trackingMarker;
-            this.pvCount = pvCount;
-        }
-
-        public TrackingMarker getTrackingMarker() {
-            return trackingMarker;
-        }
-
-        public int getPvCount() {
-            return pvCount;
-        }
     }
 
 }
