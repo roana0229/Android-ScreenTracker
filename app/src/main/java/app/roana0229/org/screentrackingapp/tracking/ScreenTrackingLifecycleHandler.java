@@ -120,20 +120,22 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
         super.onFragmentResumed(fm, f);
         if (f instanceof TrackingMarker) {
-            if (f.getView() == null || f.getView().getParent() == null) {
-                return;
-            }
-
-            if (f.getView().getParent() instanceof ViewPager) {
-                ViewPager viewPager = (ViewPager) f.getView().getParent();
-                if (!(viewPager instanceof TrackingViewPager)) {
-                    return;
-                }
-                if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+            if (!(f instanceof DialogFragment)) {
+                if (f.getView() == null || f.getView().getParent() == null) {
                     return;
                 }
 
-                ((TrackingViewPager) viewPager).resume();
+                if (f.getView().getParent() instanceof ViewPager) {
+                    ViewPager viewPager = (ViewPager) f.getView().getParent();
+                    if (!(viewPager instanceof TrackingViewPager)) {
+                        return;
+                    }
+                    if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+                        return;
+                    }
+
+                    ((TrackingViewPager) viewPager).resume();
+                }
             }
 
             fragmentStartedTime = System.currentTimeMillis();
@@ -145,17 +147,19 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
         super.onFragmentPaused(fm, f);
         if (f instanceof TrackingMarker) {
-            if (f.getView() == null || f.getView().getParent() == null) {
-                return;
-            }
-
-            if (f.getView().getParent() instanceof ViewPager) {
-                ViewPager viewPager = (ViewPager) f.getView().getParent();
-                if (!(viewPager instanceof TrackingViewPager)) {
+            if (!(f instanceof DialogFragment)) {
+                if (f.getView() == null || f.getView().getParent() == null) {
                     return;
                 }
-                if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
-                    return;
+
+                if (f.getView().getParent() instanceof ViewPager) {
+                    ViewPager viewPager = (ViewPager) f.getView().getParent();
+                    if (!(viewPager instanceof TrackingViewPager)) {
+                        return;
+                    }
+                    if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+                        return;
+                    }
                 }
             }
 

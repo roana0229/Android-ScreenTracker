@@ -6,7 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-public class PurchaseTutorialDialog extends DialogFragment {
+import java.util.HashMap;
+
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
+
+public class PurchaseTutorialDialog extends DialogFragment implements TrackingMarker {
 
     @NonNull
     @Override
@@ -17,5 +21,15 @@ public class PurchaseTutorialDialog extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, null)
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
+    }
+
+    @Override
+    public String getScreenName() {
+        return "購入チュートリアルダイアログ";
+    }
+
+    @Override
+    public HashMap<String, Object> getScreenParameter() {
+        return null;
     }
 }
