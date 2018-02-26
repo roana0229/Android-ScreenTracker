@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,14 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.HashMap;
-
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.dialog.PurchaseTutorialDialog;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
 import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingCallBack;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 import app.roana0229.org.screentrackingapp.tracking.TrackingViewPager;
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
 
@@ -50,13 +48,13 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setTrackingCallBack(new ScreenTrackingCallBack() {
             @Override
-            public void trackStarted(@NonNull String screenName, @Nullable HashMap<String, Object> parameter) {
-                TrackingLogger.getInstance().sendScreen(screenName, parameter);
+            public void trackStarted(@NonNull TrackingMarker trackingMarker) {
+                TrackingLogger.getInstance().sendScreen(trackingMarker);
             }
 
             @Override
-            public void trackEnded(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime) {
-                TrackingLogger.getInstance().sendExposure(screenName, exposureTime);
+            public void trackEnded(@NonNull TrackingMarker trackingMarker, long exposureTime) {
+                TrackingLogger.getInstance().sendExposure(trackingMarker, exposureTime);
             }
         });
     }

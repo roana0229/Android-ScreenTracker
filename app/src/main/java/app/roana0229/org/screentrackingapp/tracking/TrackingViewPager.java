@@ -60,7 +60,7 @@ public class TrackingViewPager extends ViewPager {
 
         if (callBack != null) {
             TrackingMarker trackingMarker = (TrackingMarker) fragment;
-            callBack.trackStarted(trackingMarker.getScreenName(), trackingMarker.getScreenParameter());
+            callBack.trackStarted(trackingMarker);
         }
     }
 
@@ -73,7 +73,7 @@ public class TrackingViewPager extends ViewPager {
         long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
         if (callBack != null) {
             TrackingMarker trackingMarker = (TrackingMarker) fragment;
-            callBack.trackEnded(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
+            callBack.trackEnded(trackingMarker, exposureTime);
         }
     }
 

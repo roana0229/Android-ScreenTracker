@@ -4,14 +4,9 @@ import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
-import hugo.weaving.DebugLog;
 
-@DebugLog
 public class ScreenTrackingApplication extends Application {
 
     public ScreenTrackingApplication() {
@@ -23,13 +18,13 @@ public class ScreenTrackingApplication extends Application {
         super.onCreate();
         registerActivityLifecycleCallbacks(new ScreenTrackingLifecycleHandler(new ScreenTrackingCallBack() {
             @Override
-            public void trackStarted(@NonNull String screenName, @Nullable HashMap<String, Object> parameter) {
-                TrackingLogger.getInstance().sendScreen(screenName, parameter);
+            public void trackStarted(@NonNull TrackingMarker trackingMarker) {
+                TrackingLogger.getInstance().sendScreen(trackingMarker);
             }
 
             @Override
-            public void trackEnded(@NonNull String screenName, @Nullable HashMap<String, Object> parameter, long exposureTime) {
-                TrackingLogger.getInstance().sendExposure(screenName, exposureTime);
+            public void trackEnded(@NonNull TrackingMarker trackingMarker, long exposureTime) {
+                TrackingLogger.getInstance().sendExposure(trackingMarker, exposureTime);
             }
         }));
     }

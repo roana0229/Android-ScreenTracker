@@ -3,6 +3,7 @@ package app.roana0229.org.screentrackingapp.utility;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -11,9 +12,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
-import hugo.weaving.DebugLog;
+import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
 
-@DebugLog
+
 public class TrackingLogger {
 
     private static final String TAG = TrackingLogger.class.getSimpleName();
@@ -21,6 +22,7 @@ public class TrackingLogger {
     private static final TrackingLogger instance = new TrackingLogger();
     private String session;
     private int pvCount;
+    private int prePVCount;
     private String prevScreenName;
 
     public static TrackingLogger getInstance() {
@@ -31,47 +33,51 @@ public class TrackingLogger {
         init();
     }
 
-    public void init() {
+    private void init() {
         session = UUID.randomUUID().toString().replaceAll("-", "");
         pvCount = 0;
         prevScreenName = null;
     }
 
-    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params) {
-        sendScreen(screenName, params, -1);
+    public void sendScreen(@NonNull TrackingMarker trackingMarker) {
+        sendScreen(trackingMarker, -1);
     }
 
-    public void sendScreen(@NonNull String screenName, @Nullable HashMap<String, Object> params, long exposureTime) {
+    public void sendScreen(@NonNull TrackingMarker trackingMarker, long exposureTime) {
         pvCount += 1;
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, pvCount - 1) : "");
-        stringBuilder.append(" -> ");
-        stringBuilder.append(screenLogString(screenName, pvCount));
-        if (exposureTime >= 0) {
-            stringBuilder.append(screenExposureLogString(exposureTime));
-        }
-        stringBuilder.append(paramsLogString(params));
-
-        log(stringBuilder.toString());
-
-        prevScreenName = screenName;
-    }
-
-    public void sendExposure(@NonNull String screenName, long exposureTime) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(screenLogString(screenName, pvCount));
-        stringBuilder.append(screenExposureLogString(exposureTime));
-        log(stringBuilder.toString());
-    }
-
-    private void log(@NonNull String string) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(">================================================================");
         stringBuilder.append("\n");
         stringBuilder.append(sessionLogString());
         stringBuilder.append("\n");
-        stringBuilder.append(string);
+
+
+        stringBuilder.append(prevScreenName != null ? screenLogString(prevScreenName, prePVCount) : "");
+        stringBuilder.append(" -> ");
+        stringBuilder.append(screenLogString(trackingMarker.getScreenName(), pvCount));
+        if (exposureTime >= 0) {
+            stringBuilder.append(screenExposureLogString(exposureTime));
+        }
+        stringBuilder.append(paramsLogString(trackingMarker.getScreenParameter()));
+
+
+        Log.i(TAG, stringBuilder.toString());
+
+        if (!(trackingMarker instanceof DialogFragment)) {
+            prePVCount = pvCount;
+            prevScreenName = trackingMarker.getScreenName();
+        }
+    }
+
+    public void sendExposure(@NonNull TrackingMarker trackingMarker, long exposureTime) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+
+        stringBuilder.append(screenLogString(trackingMarker.getScreenName(), pvCount));
+        stringBuilder.append(screenExposureLogString(exposureTime));
+
+
         stringBuilder.append("\n");
         stringBuilder.append("<================================================================");
         Log.i(TAG, stringBuilder.toString());

@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import hugo.weaving.DebugLog;
 
-
-@DebugLog
 public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
     private final ScreenTrackingCallBack callBack;
@@ -47,7 +45,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onActivityResumed(Activity activity) {
         if (activity instanceof TrackingMarker) {
             activityStartedTime = System.currentTimeMillis();
-            trackStarted((TrackingMarker) activity);
+            callBack.trackStarted((TrackingMarker) activity);
         }
     }
 
@@ -55,7 +53,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     public void onActivityPaused(Activity activity) {
         if (activity instanceof TrackingMarker) {
             long exposureTime = System.currentTimeMillis() - activityStartedTime;
-            trackEnded((TrackingMarker) activity, exposureTime);
+            callBack.trackEnded((TrackingMarker) activity, exposureTime);
         }
     }
 
@@ -139,7 +137,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
             }
 
             fragmentStartedTime = System.currentTimeMillis();
-            trackStarted((TrackingMarker) f);
+            callBack.trackStarted((TrackingMarker) f);
         }
     }
 
@@ -164,7 +162,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
             }
 
             long exposureTime = System.currentTimeMillis() - fragmentStartedTime;
-            trackEnded((TrackingMarker) f, exposureTime);
+            callBack.trackEnded((TrackingMarker) f, exposureTime);
         }
     }
 
@@ -190,14 +188,6 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
     @Override
     public void onFragmentDetached(FragmentManager fm, Fragment f) {
         super.onFragmentDetached(fm, f);
-    }
-
-    private void trackStarted(TrackingMarker trackingMarker) {
-        callBack.trackStarted(trackingMarker.getScreenName(), trackingMarker.getScreenParameter());
-    }
-
-    private void trackEnded(TrackingMarker trackingMarker, long exposureTime) {
-        callBack.trackEnded(trackingMarker.getScreenName(), trackingMarker.getScreenParameter(), exposureTime);
     }
 
 }
