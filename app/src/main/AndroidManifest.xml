@@ -3,7 +3,7 @@
     package="app.roana0229.org.screentrackingapp">
 
     <application
-        android:name=".tracking.ScreenTrackingApplication"
+        android:name=".ScreenTrackingApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

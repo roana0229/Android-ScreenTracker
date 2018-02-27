@@ -1,9 +1,10 @@
-package app.roana0229.org.screentrackingapp.tracking;
+package app.roana0229.org.screentrackingapp;
 
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
 
+import app.roana0229.org.screentrackingapp.tracking.ScreenTrackingLifecycleHandler;
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
 
 public class ScreenTrackingApplication extends Application {
