@@ -3,6 +3,8 @@ package app.roana0229.org.screentrackingapp.tracking;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
@@ -29,6 +31,14 @@ public class TrackingViewPager extends ViewPager {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void setAdapter(PagerAdapter adapter) {
+        if (!(adapter instanceof FragmentPagerAdapter)) {
+            throw new RuntimeException(getClass().getSimpleName() + " can use 'FragmentPagerAdapter' only. See: https://github.com/roana0229/ScreenTrackingApp/issues/13");
+        }
+        super.setAdapter(adapter);
     }
 
     public void setTrackingCallBack(ScreenTrackingCallBack callBack) {
