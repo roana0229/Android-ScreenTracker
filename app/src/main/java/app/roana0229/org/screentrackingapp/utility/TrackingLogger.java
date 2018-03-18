@@ -12,8 +12,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.UUID;
 
-import app.roana0229.org.screentracktrigger.tracking.ScreenTrackingCallBack;
-import app.roana0229.org.screentracktrigger.tracking.TrackingMarker;
+import app.roana0229.org.screentracker.ScreenTrackingCallBack;
+import app.roana0229.org.screentracker.TrackingMarker;
 
 
 public class TrackingLogger {

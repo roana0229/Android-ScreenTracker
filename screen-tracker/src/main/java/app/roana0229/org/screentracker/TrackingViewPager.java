@@ -1,4 +1,4 @@
-package app.roana0229.org.screentracktrigger.tracking;
+package app.roana0229.org.screentracker;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

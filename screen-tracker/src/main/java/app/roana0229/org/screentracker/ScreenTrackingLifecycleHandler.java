@@ -1,4 +1,4 @@
-package app.roana0229.org.screentracktrigger.tracking;
+package app.roana0229.org.screentracker;
 
 import android.app.Activity;
 import android.app.Application;

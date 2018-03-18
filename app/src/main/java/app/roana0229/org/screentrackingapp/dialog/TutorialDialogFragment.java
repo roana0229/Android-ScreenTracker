@@ -8,7 +8,8 @@ import android.support.v7.app.AlertDialog;
 
 import java.util.HashMap;
 
-import app.roana0229.org.screentracktrigger.tracking.TrackingMarker;
+import app.roana0229.org.screentracker.TrackingMarker;
+
 
 public class TutorialDialogFragment extends DialogFragment implements TrackingMarker {
 

@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import app.roana0229.org.screentracker.TrackingMarker;
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.model.DummyContent;
-import app.roana0229.org.screentracktrigger.tracking.TrackingMarker;
 
 public class DetailFragment extends Fragment implements TrackingMarker {
 

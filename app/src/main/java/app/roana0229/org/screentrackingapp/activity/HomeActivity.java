@@ -11,13 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import app.roana0229.org.screentracker.TrackingViewPager;
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.dialog.TutorialDialogFragment;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
-import app.roana0229.org.screentracktrigger.tracking.TrackingViewPager;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (TrackingViewPager) findViewById(R.id.container);
+        TrackingViewPager mViewPager = (TrackingViewPager) findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setTrackingCallBack(TrackingLogger.getInstance().getCallBack());
