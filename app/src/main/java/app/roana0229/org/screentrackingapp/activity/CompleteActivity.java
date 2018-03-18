@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import app.roana0229.org.screentrackingapp.Navigator;
 import app.roana0229.org.screentrackingapp.R;
-import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
+import app.roana0229.org.screentracktrigger.tracking.TrackingMarker;
 
 public class CompleteActivity extends AppCompatActivity implements TrackingMarker {
 

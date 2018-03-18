@@ -15,7 +15,7 @@ import java.util.List;
 import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.adapter.SettingAdapter;
 import app.roana0229.org.screentrackingapp.model.SettingContent;
-import app.roana0229.org.screentrackingapp.tracking.TrackingMarker;
+import app.roana0229.org.screentracktrigger.tracking.TrackingMarker;
 
 public class SettingFragment extends Fragment implements TrackingMarker {
 

@@ -16,8 +16,8 @@ import app.roana0229.org.screentrackingapp.R;
 import app.roana0229.org.screentrackingapp.dialog.TutorialDialogFragment;
 import app.roana0229.org.screentrackingapp.fragment.EmptyTabFragment;
 import app.roana0229.org.screentrackingapp.fragment.TabFragment;
-import app.roana0229.org.screentrackingapp.tracking.TrackingViewPager;
 import app.roana0229.org.screentrackingapp.utility.TrackingLogger;
+import app.roana0229.org.screentracktrigger.tracking.TrackingViewPager;
 
 public class HomeActivity extends AppCompatActivity {
 
