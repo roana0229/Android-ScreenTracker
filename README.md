@@ -1,14 +1,8 @@
 # ScreenTracker
 
-`Activity`, `Fragment`, `ViewPager` track Library.
+`Activity`, `Fragment`, `ViewPager` track library
 
 ![demo](https://raw.githubusercontent.com/roana0229/ScreenTrackingApp/master/demo.gif)
-
-## Tracking Pattern
-
-- Activity
-- Fragment on Activity
-- ViewPager
 
 ## Usage
 
