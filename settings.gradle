@@ -1,1 +1,1 @@
-include ':app', ':screen-tracker'
+include ':screen-tracker'

@@ -8,7 +8,9 @@
 
 #### 1. Import this library
 
-Project Structure > + icon > Import .JAR/.AAR Package > Select [screen-track-trigger-1.0.aar](https://raw.githubusercontent.com/roana0229/ScreenTrackingApp/master/screen-track-trigger-1.0.aar) file
+- Project Structure > + icon > Import .JAR/.AAR Package > Select [screen-track-trigger-1.0.aar](https://raw.githubusercontent.com/roana0229/ScreenTrackingApp/master/screen-tracker-1.0.0.aar) file
+
+- Add `compile project(path: ':screen-tracker-1.0.0')` to `builde.gradle`
 
 
 #### 2. Regist `ScreenTrackingCallBack`

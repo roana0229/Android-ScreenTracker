@@ -1,29 +1,38 @@
 apply plugin: 'com.android.library'
 
+ext {
+    VERSION_NAME = "1.0.0"
+    VERSION_CODE = 10000
+    COMPILE_SDK_VERSION = 27
+    MIN_SDK_VERSION = 4
+    TARGET_SDK_VERSION = 27
+    BUILD_TOOLS_VERSION = "${COMPILE_SDK_VERSION}.0.2"
+    SUPPORT_LIBRARY_VERSION = "${COMPILE_SDK_VERSION}.0.2"
+}
+
 android {
-    compileSdkVersion 26
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     libraryVariants.all { variant ->
-        if (variant.buildType.name.equals("release")) {
-            variant.outputs.all {
+        variant.outputs.all {
+            if (variant.buildType.name.equals("release")) {
                 outputFileName = outputFileName.replace(("-release.aar"), "-${defaultConfig.versionName}.aar")
-            }
-        } else if (variant.buildType.name.equals("debug")) {
-            variant.outputs.all {
+            } else if (variant.buildType.name.equals("debug")) {
                 outputFileName = outputFileName.replace((".aar"), "-${defaultConfig.versionName}.aar")
             }
         }
@@ -32,5 +41,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
 }
