@@ -17,7 +17,7 @@
 
 Track `Activity`, `Fragment`
 
-```
+```.java
 public class SampleApplication extends Application {
 
     @Override
@@ -41,7 +41,7 @@ public class SampleApplication extends Application {
 
 Track `ViewPager`
 
-```
+```.java
 public class SampleActivity extends AppCompatActivity {
 
     @Override
@@ -69,7 +69,7 @@ public class SampleActivity extends AppCompatActivity {
 
 #### 3. Implements `TrackingMarker`
 
-```
+```.java
 public class SampleActivity extends AppCompatActivity implements TrackingMarker {
 
     @Override
