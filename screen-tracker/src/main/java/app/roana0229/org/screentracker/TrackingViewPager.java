@@ -55,15 +55,15 @@ public class TrackingViewPager extends ViewPager {
         addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                trackEnded();
+                trackEnded(prevPosition);
                 resume();
-                trackStarted();
+                trackStarted(position);
             }
         });
     }
 
-    private void trackStarted() {
-        Fragment fragment = getFragment(prevPosition);
+    private void trackStarted(int position) {
+        Fragment fragment = getFragment(position);
         if (fragment == null || !(fragment instanceof TrackingMarker)) {
             return;
         }
@@ -74,8 +74,8 @@ public class TrackingViewPager extends ViewPager {
         }
     }
 
-    private void trackEnded() {
-        Fragment fragment = getFragment(prevPosition);
+    private void trackEnded(int position) {
+        Fragment fragment = getFragment(position);
         if (fragment == null || !(fragment instanceof TrackingMarker)) {
             return;
         }
