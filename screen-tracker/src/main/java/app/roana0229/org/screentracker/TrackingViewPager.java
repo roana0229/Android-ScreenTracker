@@ -41,6 +41,22 @@ public class TrackingViewPager extends ViewPager {
         super.setAdapter(adapter);
     }
 
+    public int indexOfFragment(Fragment fragment) {
+        if (getAdapter() != null) {
+            for (int i = 0; i < getAdapter().getCount(); i++) {
+                Fragment fragmentOfIndex = getFragment(i);
+                if (fragmentOfIndex == null) {
+                    continue;
+                }
+                if (fragmentOfIndex == fragment) {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
     public void setTrackingCallBack(ScreenTrackingCallBack callBack) {
         this.callBack = callBack;
     }
