@@ -91,7 +91,7 @@ public class ScreenTrackingLifecycleHandler extends FragmentManager.FragmentLife
                     if (!(viewPager instanceof TrackingViewPager)) {
                         return;
                     }
-                    if (viewPager.indexOfChild(f.getView()) != viewPager.getCurrentItem()) {
+                    if (((TrackingViewPager) viewPager).indexOfFragment(f) != viewPager.getCurrentItem()) {
                         return;
                     }
 
