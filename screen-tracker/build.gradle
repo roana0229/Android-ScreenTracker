@@ -43,3 +43,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
 }
+
+apply from: 'publish.gradle'
