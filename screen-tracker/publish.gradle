@@ -40,7 +40,7 @@ bintray {
     configurations = ['archives']
     override = true
     pkg {
-        userOrg = 'roana'
+        userOrg = 'roana0229'
         repo = 'Android-Library'
         name = 'Android-ScreenTracker'
         description = "Android screen tracking library"
