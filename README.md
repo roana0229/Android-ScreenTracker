@@ -1,4 +1,4 @@
-# ScreenTracker
+# Android-ScreenTracker [ ![Download](https://api.bintray.com/packages/roana0229/Android-Library/Android-ScreenTracker/images/download.svg) ](https://bintray.com/roana0229/Android-Library/Android-ScreenTracker/)
 
 `Activity`, `Fragment`, `ViewPager` track library
 
