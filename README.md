@@ -8,14 +8,17 @@
 
 #### 1. Import this library
 
-- Project Structure > + icon > Import .JAR/.AAR Package > Select [screen-track-trigger-1.0.aar](https://raw.githubusercontent.com/roana0229/ScreenTrackingApp/master/screen-tracker-1.0.0.aar) file
+```.gradle
+implementation ('org.roana0229.app:screentracker:1.0.+') {
+    exclude group: 'com.android.support', module: 'appcompat-v7'
+}
+```
 
-- Add `compile project(path: ':screen-tracker-1.0.0')` to `builde.gradle`
-
+[Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/build.gradle#L22)
 
 #### 2. Regist `ScreenTrackingCallBack`
 
-Track `Activity`, `Fragment`
+##### Track `Activity`, `Fragment`
 
 ```.java
 public class SampleApplication extends Application {
@@ -39,7 +42,9 @@ public class SampleApplication extends Application {
 }
 ```
 
-Track `ViewPager`
+[Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/src/main/java/app/roana0229/org/android_screentracker_sample/ScreenTrackingApplication.java#L19)
+
+##### Track `ViewPager`
 
 ```.java
 public class SampleActivity extends AppCompatActivity {
@@ -67,6 +72,8 @@ public class SampleActivity extends AppCompatActivity {
 }
 ```
 
+[Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/src/main/java/app/roana0229/org/android_screentracker_sample/activity/HomeActivity.java#L47)
+
 #### 3. Implements `TrackingMarker`
 
 ```.java
@@ -84,3 +91,11 @@ public class SampleActivity extends AppCompatActivity implements TrackingMarker 
 
 }
 ```
+
+[Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/src/main/java/app/roana0229/org/android_screentracker_sample/activity/SplashActivity.java#L13)
+
+If you are tracking everything, you should write `implements TrackingMarker` in `BaseActivity or BaseFragment`.
+
+## Sample Tracking Logger Utility
+
+[Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/src/main/java/app/roana0229/org/android_screentracker_sample/utility/TrackingLogger.java)
