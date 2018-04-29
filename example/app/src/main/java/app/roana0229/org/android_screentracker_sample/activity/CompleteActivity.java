@@ -21,7 +21,7 @@ public class CompleteActivity extends AppCompatActivity implements TrackingMarke
 
     @Override
     public String getScreenName() {
-        return "完了";
+        return this.getClass().getSimpleName();
     }
 
     @Override

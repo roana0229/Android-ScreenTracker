@@ -36,7 +36,7 @@ public class DetailFragment extends Fragment implements TrackingMarker {
 
     @Override
     public String getScreenName() {
-        return "詳細";
+        return this.getClass().getSimpleName();
     }
 
     @Override

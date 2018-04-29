@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity implements TrackingMarker 
 
     @Override
     public String getScreenName() {
-        return "スプラッシュ";
+        return this.getClass().getSimpleName();
     }
 
     @Override

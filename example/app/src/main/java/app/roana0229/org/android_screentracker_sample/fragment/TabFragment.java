@@ -36,7 +36,7 @@ public class TabFragment extends Fragment implements TrackingMarker {
 
     @Override
     public String getScreenName() {
-        return "タブ" + section;
+        return this.getClass().getSimpleName();
     }
 
     @Override

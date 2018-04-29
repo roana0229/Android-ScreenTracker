@@ -26,7 +26,7 @@ public class TutorialDialogFragment extends DialogFragment implements TrackingMa
 
     @Override
     public String getScreenName() {
-        return "購入チュートリアルダイアログ";
+        return this.getClass().getSimpleName();
     }
 
     @Override

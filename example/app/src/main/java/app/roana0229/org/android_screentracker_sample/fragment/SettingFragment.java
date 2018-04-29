@@ -40,7 +40,7 @@ public class SettingFragment extends Fragment implements TrackingMarker {
 
     @Override
     public String getScreenName() {
-        return mItem == null ? "設定一覧" : "設定詳細";
+        return this.getClass().getSimpleName() + (mItem == null ? "[List]" : "[Detail]");
     }
 
     @Override
