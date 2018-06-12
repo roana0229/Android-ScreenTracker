@@ -1,6 +1,8 @@
 # Android-ScreenTracker [ ![Download](https://api.bintray.com/packages/roana0229/Android-Library/Android-ScreenTracker/images/download.svg) ](https://bintray.com/roana0229/Android-Library/Android-ScreenTracker/)
 
-`Activity`, `Fragment`, `ViewPager` track library
+The minimum library to track screen `Activity`, `Fragment`, `ViewPager`.  
+Hook screen `onResume`, `onPause`. And hook screen only `ViewPager` `onPageSelected`.  
+If you use for iOS, see [iOS-ScreenTracker](https://github.com/roana0229/iOS-ScreenTracker).
 
 ![demo](https://raw.githubusercontent.com/roana0229/ScreenTrackingApp/master/demo.gif)
 
