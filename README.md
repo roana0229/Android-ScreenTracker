@@ -99,3 +99,10 @@ If you are tracking everything, you should write `implements TrackingMarker` in 
 ## Sample Tracking Logger Utility
 
 [Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/src/main/java/app/roana0229/org/android_screentracker_sample/utility/TrackingLogger.java)
+
+
+## LICENSE
+
+see `LICENSE` file.
+
+Copyright (c) 2018 roana0229 <roana.enter@gmail.com>
