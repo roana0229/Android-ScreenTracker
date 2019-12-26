@@ -18,7 +18,7 @@ implementation ('org.roana0229.app:screentracker:1.0.+') {
 
 [Look at the sample code](https://github.com/roana0229/Android-ScreenTracker/blob/master/example/app/build.gradle#L22)
 
-#### 2. Regist `ScreenTrackingCallBack`
+#### 2. Register `ScreenTrackingCallBack`
 
 ##### Track `Activity`, `Fragment`
 
